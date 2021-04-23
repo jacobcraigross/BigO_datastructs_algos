@@ -53,6 +53,7 @@ addUserBtn.addEventListener('click', getRandomUser);
 doubleBtn.addEventListener('click', doubleMoney);
 sortBtn.addEventListener('click', sortByRichest);
 showMillionairesBtn.addEventListener('click', showMillionaires);
+calculateWealthBtn.addEventListener('click', calculateWealth);
 
 // formatting the money correctly via REGEX
 function formatMoney(number) {
@@ -78,4 +79,12 @@ function sortByRichest() {
 function showMillionaires() {
     data = data.filter(user => user.money > 1000000);
     updateDOM();
+}
+
+// using reducer method to total all the money via an accumulator and the user object. Drilling down into money, which is a property of the object. 
+function calculateWealth() {
+    const totalWealth = data.reduce((acc, user) => (acc += user.money), 0);
+    const totalWealthElem = document.createElement('div');
+    totalWealthElem.innerHTML = `<h3>Total Wealth: <strong> ${  formatMoney(totalWealth)  }</strong></h3>`;
+    main.appendChild(totalWealthElem);
 }
